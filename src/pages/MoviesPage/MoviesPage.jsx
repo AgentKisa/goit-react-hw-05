@@ -4,14 +4,14 @@ import MovieList from "../../components/MovieList/MovieList";
 import { fetchSearchMovies } from "../Api";
 
 const MoviesPage = () => {
-  const [searchMovie, setSearchMovie] = useState([]);
+  const [searchMovies, setSearchMovies] = useState([]);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
     async function getMovie() {
       try {
         const response = await fetchSearchMovies(query);
-        setSearchMovie(response);
+        setSearchMovies(response);
       } catch (error) {
         console.log(error);
       }
@@ -21,13 +21,13 @@ const MoviesPage = () => {
 
   const onHandleSubmit = (value) => {
     setQuery(value);
-    setSearchMovie([]);
+    setSearchMovies([]);
   };
 
   return (
     <>
       <SearchBox onSearch={onHandleSubmit} />
-      <MovieList list={searchMovie} />
+      <MovieList list={searchMovies} />
     </>
   );
 };
