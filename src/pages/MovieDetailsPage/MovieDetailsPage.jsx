@@ -34,7 +34,7 @@ const MovieDetailsPage = () => {
   if (!film) {
     return <div>Loading...</div>;
   }
-  console.log("loca", goBackRef);
+  console.log("loca", location);
   return (
     <div>
       <Link to={goBackRef}>Go back to movies!</Link>

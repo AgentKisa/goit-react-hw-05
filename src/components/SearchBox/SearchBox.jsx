@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export const SearchBox = ({ onSearch }) => {
   const [query, setQuery] = useState("");
   const [params, setParams] = useSearchParams();
-  const value = params.get("owner") ?? "";
 
-  const handleChange = (e, newFilter) => {
+  useEffect(() => {
+    const queryParam = params.get("q");
+    if (queryParam) {
+      setQuery(queryParam);
+      onSearch(queryParam);
+    }
+  }, []);
+
+  const handleChange = (e) => {
     setQuery(e.target.value);
-    params.set("owner", newFilter);
   };
 
   const handleSubmit = (e) => {
@@ -17,7 +23,7 @@ export const SearchBox = ({ onSearch }) => {
       return;
     }
     onSearch(query);
-    setParams({ owner: query });
+    setParams({ q: query });
   };
 
   return (

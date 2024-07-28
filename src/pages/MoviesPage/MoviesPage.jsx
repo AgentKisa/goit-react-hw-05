@@ -5,9 +5,8 @@ import { fetchSearchMovies } from "../Api";
 
 const MoviesPage = () => {
   const [searchMovies, setSearchMovies] = useState([]);
-  const [query, setQuery] = useState("");
 
-  useEffect(() => {
+  const onHandleSubmit = (query) => {
     async function getMovie() {
       try {
         const response = await fetchSearchMovies(query);
@@ -17,10 +16,6 @@ const MoviesPage = () => {
       }
     }
     getMovie();
-  }, [query]);
-
-  const onHandleSubmit = (value) => {
-    setQuery(value);
     setSearchMovies([]);
   };
 
