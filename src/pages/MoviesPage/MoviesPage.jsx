@@ -7,7 +7,7 @@ import { fetchSearchMovies } from "../Api";
 
 const MoviesPage = () => {
   const [searchMovies, setSearchMovies] = useState([]);
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const query = params.get("query") || "";
   const [noReviews, setNoReviews] = useState(false);
 
@@ -29,13 +29,14 @@ const MoviesPage = () => {
     getMovie();
   }, [query]);
 
-  const onHandleSubmit = (value) => {
+  const onHandleSubmit = (query) => {
+    setParams({ query });
     setSearchMovies([]);
   };
 
   return (
     <>
-      <SearchBox onSearch={onHandleSubmit} />
+      <SearchBox onSearch={onHandleSubmit} queryParam={query} />
       {noReviews ? (
         <div>We don't have any reviews for this movie.</div>
       ) : (

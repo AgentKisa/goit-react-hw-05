@@ -67,14 +67,30 @@ const MovieDetailsPage = () => {
         <ul className={css.additionalInfo}>
           Additional information
           <li className={css.additionalInfoItem}>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={{ from: backLinkRef.current }}>
+              Cast
+            </Link>
           </li>
           <li className={css.additionalInfoItem}>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={{ from: backLinkRef.current }}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </div>
-      <Suspense fallback={<div>Loading sub components...</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Circles
+              height="80"
+              width="80"
+              color="#4fa94d"
+              ariaLabel="circles-loading"
+              visible={true}
+            />
+          </div>
+        }
+      >
         <Outlet />
       </Suspense>
     </div>

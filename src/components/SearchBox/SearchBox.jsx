@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-const SearchBox = ({ onSearch }) => {
-  const [params, setParams] = useSearchParams();
-  const [query, setQuery] = useState(params.get("query") || "");
+const SearchBox = ({ onSearch, queryParam }) => {
+  const [query, setQuery] = useState(queryParam);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -17,7 +16,7 @@ const SearchBox = ({ onSearch }) => {
       toast.error("Empty field, enter text!");
       return;
     }
-    setParams({ query });
+
     onSearch(query);
   };
 
