@@ -1,14 +1,19 @@
+// MoviesPage.jsx
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import MovieList from "../../components/MovieList/MovieList";
 import { fetchSearchMovies } from "../Api";
 
 const MoviesPage = () => {
   const [searchMovies, setSearchMovies] = useState([]);
+  const [params] = useSearchParams();
+  const query = params.get("query") || "";
   const [noReviews, setNoReviews] = useState(false);
 
-  const onHandleSubmit = (query) => {
+  useEffect(() => {
     async function getMovie() {
+      if (!query) return;
       try {
         const response = await fetchSearchMovies(query);
         if (!response || response.length === 0) {
@@ -22,6 +27,9 @@ const MoviesPage = () => {
       }
     }
     getMovie();
+  }, [query]);
+
+  const onHandleSubmit = (value) => {
     setSearchMovies([]);
   };
 

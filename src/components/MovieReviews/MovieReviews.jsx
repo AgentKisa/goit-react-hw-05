@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Circles } from "react-loader-spinner";
 import { fetchDetailsReviews } from "../../pages/Api";
 import css from "./MovieReviews.module.css";
 
@@ -12,6 +12,7 @@ const MovieReviews = () => {
     async function getReview() {
       try {
         const response = await fetchDetailsReviews(movieId);
+        console.log("raaaa", response);
         setReview(response);
       } catch (error) {
         console.log(error);
@@ -25,14 +26,16 @@ const MovieReviews = () => {
   }
 
   return (
-    <ul className={css.reviewList}>
-      {review.map((item) => (
-        <li key={item.id} className={css.reviewItem}>
-          <p className={css.reviewAuthor}>Author: {item.author}</p>
-          <p>Content: {item.content}</p>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className={css.reviewList}>
+        {review.map((item) => (
+          <li key={item.id} className={css.reviewItem}>
+            <p className={css.reviewAuthor}>Author: {item.author}</p>
+            <p>Content: {item.content}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

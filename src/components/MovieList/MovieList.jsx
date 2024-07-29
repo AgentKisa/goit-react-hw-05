@@ -1,3 +1,4 @@
+// MovieList.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import css from "./MovieList.module.css";
@@ -11,7 +12,7 @@ const MovieList = ({ list }) => {
         <li key={movie.id} className={css.movieItem}>
           <Link
             to={`/movies/${movie.id}`}
-            state={{ from: location.pathname + location.search }}
+            state={{ from: location }}
             className={css.movieLink}
           >
             {movie.title}

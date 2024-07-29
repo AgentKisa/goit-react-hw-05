@@ -1,11 +1,6 @@
-import React, { useEffect, useRef, useState, Suspense } from "react";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+// MovieDetailsPage.jsx
+import React, { useEffect, useState, useRef, Suspense } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { fetchDetailsMovies } from "../Api";
 import { Circles } from "react-loader-spinner";
 import css from "./MovieDetailsPage.module.css";
@@ -14,10 +9,10 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [film, setFilm] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();
-  const goBackRef = useRef(location.state?.from ?? "/");
+  const backLinkRef = useRef(location.state?.from ?? "/movies");
 
-  const defaultImg = "https://path/to/default/image.jpg";
+  const defaultImg =
+    "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
 
   useEffect(() => {
     async function getFilm() {
@@ -47,7 +42,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={css.movieDetails}>
-      <Link to={goBackRef.current}>Go back to movies!</Link>
+      <Link to={backLinkRef.current}>Go back to movies!</Link>
       <img
         src={
           film.poster_path
