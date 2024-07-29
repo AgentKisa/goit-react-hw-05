@@ -1,0 +1,20 @@
+.castList {
+    list-style: none;
+    padding: 0;
+}
+
+.castItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.castImage {
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.castDetails {
+    display: flex;
+    flex-direction: column;
+}

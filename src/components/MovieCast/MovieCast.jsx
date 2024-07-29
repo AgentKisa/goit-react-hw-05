@@ -1,7 +1,8 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchDetailsCast } from "../../pages/Api";
+import { Circles } from "react-loader-spinner";
+import css from "./MovieCast.module.css";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -13,7 +14,6 @@ const MovieCast = () => {
     async function getCast() {
       try {
         const response = await fetchDetailsCast(movieId);
-        console.log("caaaa", response);
         setCast(response);
       } catch (error) {
         console.log(error);
@@ -22,32 +22,31 @@ const MovieCast = () => {
     getCast();
   }, [movieId]);
 
-  if (!cast) {
-    return <div>Loading...</div>;
+  if (!cast.length) {
+    return <div>This movie has no cast</div>;
   }
 
   return (
-    <div>
-      <ul>
-        {cast.map((item) => (
-          <li key={item.id}>
-            <img
-              src={
-                item.profile_path
-                  ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
-                  : defaultImg
-              }
-              width={100}
-              alt={item.name}
-            />
-            <div>
-              <p>Name: {item.name}</p>
-              <p>Character: {item.job}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={css.castList}>
+      {cast.map((item) => (
+        <li key={item.id} className={css.castItem}>
+          <img
+            src={
+              item.profile_path
+                ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                : defaultImg
+            }
+            width={100}
+            alt={item.name}
+            className={css.castImage}
+          />
+          <div className={css.castDetails}>
+            <p>Name: {item.name}</p>
+            <p>Character: {item.job}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

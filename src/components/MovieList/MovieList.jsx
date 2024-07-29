@@ -1,18 +1,18 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import css from "./MovieList.module.css";
 
 const MovieList = ({ list }) => {
   const location = useLocation();
 
-  console.log("loca2", location);
-
   return (
-    <ul>
+    <ul className={css.movieList}>
       {list.map((movie) => (
-        <li key={movie.id}>
+        <li key={movie.id} className={css.movieItem}>
           <Link
             to={`/movies/${movie.id}`}
             state={{ from: location.pathname + location.search }}
+            className={css.movieLink}
           >
             {movie.title}
           </Link>

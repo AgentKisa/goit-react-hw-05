@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export const SearchBox = ({ onSearch }) => {
   const [query, setQuery] = useState("");
@@ -20,6 +21,7 @@ export const SearchBox = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) {
+      toast.error("Empty field, enter text!");
       return;
     }
     onSearch(query);
@@ -29,7 +31,13 @@ export const SearchBox = ({ onSearch }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={query} onChange={handleChange} />
+        <Toaster />
+        <input
+          type="text"
+          value={query}
+          placeholder="Search movies..."
+          onChange={handleChange}
+        />
         <button type="submit">Search</button>
       </form>
     </>
